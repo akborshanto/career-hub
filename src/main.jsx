@@ -26,13 +26,13 @@ errorElement:<Error></Error>
       },
       {
         path:'/applied',
-        loader:()=>fetch('../public/jobs.json'),
+        loader:()=>fetch('../public/jobs.json'),//do not load unit not all thge data.
         element:<AppliedJob></AppliedJob>
       },
    {
     path:'/job/:id',
     element:<JobTItle></JobTItle>,
-    loader:({id})=>fetch('../public/jobs.json')
+    loader:()=>fetch('../public/jobs.json')
    }
       
     ]

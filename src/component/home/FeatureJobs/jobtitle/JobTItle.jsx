@@ -3,7 +3,7 @@ import { Link, useLoaderData, useParams } from 'react-router-dom'
 /* tostyfy */
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { saveJobApplication } from '../../../../utility/LocalStorage';
+import { saveJobApplicaton } from '../../../../utility/LocalStorage';
 
 const JobTItle = () => {
 const jobs=useLoaderData()
@@ -16,8 +16,7 @@ const job=jobs.find(job => job.id === idInt)
 /* tostyfy */
 const handleApply=()=>{
 
-saveJobApplication(idInt)
-
+  saveJobApplicaton(idInt)
   toast('Hurray  !! you have successfully applied the job.')
 
 }

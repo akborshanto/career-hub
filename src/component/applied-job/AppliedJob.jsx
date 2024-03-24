@@ -3,51 +3,78 @@ import { useLoaderData } from 'react-router-dom'
 import { getStoredJobApplication } from '../../utility/LocalStorage'
 
 const AppliedJob = () => {
+
 const jobs=useLoaderData()
-const [applidJobs,setAppliedJobs]=useState([])
+
+/* state */
+const [appliedJobs,setAppliedJobs]=useState([])
+const  [displayJobs,setDisplayJobs]=useState([])
+const handleJobsFilter=(filter)=>{
+
+if(filter === 'all'){
+  setDisplayJobs(appliedJobs)
+}else if(filter ==='remote'){
+
+const remoteJobs=appliedJobs.filter(job =>job.remote_or_onsite=== 'Remote')
+setDisplayJobs(remoteJobs)
+}
+else if(filter === 'oniste'){
+
+  const onsiteJobs=appliedJobs.filter(job => job.remote_or_onsite ==='onsite')
+  setDisplayJobs(onsiteJobs)
+}
+
+}
+
+
+
+console.log
+
+
 useEffect(()=>{
 
-  const storedJobIds=getStoredJobApplication()
-
+const storedJobId=getStoredJobApplication()
+console.log(storedJobId)
 if(jobs.length >0){
+const jobsApplied=[]
 
-const jobSApplied=[]
-for(const id of storedJobIds){
+for(const id of storedJobId){
 
-const job=jobs.find(job => job.id === id)
+
+
+const job=jobs.find(job=> job.id === id)
 
 if(job){
-  jobSApplied.push(job)
+  jobsApplied.push(job)
 }
 
-}
 
-setAppliedJobs(jobSApplied)
+
+}
+setAppliedJobs(jobsApplied)
+
 }
 
 },[])
 
-console.log(applidJobs)
-
-
-
   return (
     <div>
-      Applied{applidJobs.length}
+      Applied
       <details className="dropdown">
-      <summary className="m-1 btn">open or close</summary>
+      <summary className="m-1 btn btn-warning">open or close</summary>
       <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-        <li><a>Item 1</a></li>
-        <li><a>Item 2</a></li>
+        <li><a onClick={()=>handleJobsFilter('all')}>Item 1</a></li>
+        <li><a onClick={()=>handleJobsFilter('Remote')}>Item 2</a></li>
+        <li><a onClick={()=>handleJobsFilter('onsite')}>Item 2</a></li>
       </ul>
     </details>
+<ul>
 
-    <ul>
-    
-  {
-    applidJobs.map(job=> <li key={job.id}><span>{job.job_title}{job.company_name}</span></li>)
-  }
-    </ul>
+{
+  appliedJobs.map(job => <li key={Math.random()}>{job.job_title}</li>)
+}
+</ul>
+
 
     </div>
   )

@@ -1,30 +1,26 @@
 
+
+
+
 const getStoredJobApplication=()=>{
-const storedJobApplication=localStorage.getItem('job-applications ')
-if(storedJobApplication){
-    return JSON.parse(storedJobApplication)
+
+const storedJObApplication=localStorage.getItem('job-applications')//empty arraay
+if(storedJObApplication){
+    return JSON.parse(storedJObApplication)
 }
 return [];
 }
 
+const saveJobApplicaton=id=>{
 
-
-
-const saveJobApplication=id=>{
-
-const storedJobApplications=getStoredJobApplication()
-
-const exists=storedJobApplications.find(jobId=> jobId.id === id)
-
+    const storedJobApplications=getStoredJobApplication()
+    const exists=storedJobApplications.find(jobId=>jobId == id)
 if(!exists){
-
     storedJobApplications.push(id)
     localStorage.setItem('job-applications',JSON.stringify(storedJobApplications))
 }
+
+
+
 }
-
-
-
-
-
-export {getStoredJobApplication,saveJobApplication}
+export {getStoredJobApplication,saveJobApplicaton}
